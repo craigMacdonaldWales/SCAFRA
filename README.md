@@ -1,0 +1,2 @@
+# SCAFRA
+the SCAFRA framework
