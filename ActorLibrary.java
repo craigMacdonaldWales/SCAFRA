@@ -181,6 +181,8 @@ public class ActorLibrary {
 		
 		scenarioIndex = scenarioIndexref;
 		
+		scenarioInfoContainer.put("STATUS", "pass"); // assume it's passing until / if a fail occurs
+		
 		scenarioResult = "PASS"; // reporting
 		String execResult = "pass"; //add more classifications later based on return from operation execution.
 		
@@ -288,6 +290,7 @@ public class ActorLibrary {
 				failurePoint = operationalDataset;
 				//scenarioResult = "FAIL";
 				execResult = "restarted";
+				scenarioInfoContainer.put("STATUS", "fail");
 				dialogs.scenarioProgressMeter("Done",100);
 				//scenariosExecutedInsert
 				return execResult;

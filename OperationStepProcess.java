@@ -95,6 +95,9 @@ public class OperationStepProcess {
 				System.out.println("drop flag: " + dropFlag);
 				System.out.println("controlled shutdown procedure: " + controlledShutdownProcedure);
 				
+				ActorLibrary.scenarioInfoContainer.put("processing step", operationalDataset);
+				//ActorLibrary.scenarioInfoContainer.put("processing step", operationalDataset);
+				
 				// process the operation
 				//String stepResult;
 				operationExecResult = processStep();// perform the physical actions.
@@ -140,7 +143,8 @@ public class OperationStepProcess {
 				// aut table input function
 				stepResult = autTableInput();
 				
-				if (StatementPrepareAndExecute.execResult != "pass"){
+				if (stepResult != "pass"){
+					System.out.println("table input step failed");
 					stepResult = "fail";
 				}
 				
