@@ -39,9 +39,26 @@ public class Startup {
 	public static HashMap<String,String> LoadIni(){
 	
 	HashMap<String,String> configMap = new HashMap();
-		
+
+	String osSystem = System.getProperty("os.name");
+	String filePath;
+	
+	System.out.println(osSystem);
+	switch (osSystem){
+		case "Mac OS X":	
+			filePath = "/Users/craigmacdonald/git/SCAFRA/lib/scafraini.txt";
+			break;
+		default:
+			filePath = "C:/SCAFRA/scafraini.txt"; // need to document this
+			break;
+	}
+	
 		// load up startup parameters from INI file
-	String filePath = "C:/SCAFRA/scafraini.txt";
+	
+	
+	
+	
+	
 	
 	String runGroupId;
 	

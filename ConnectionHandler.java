@@ -31,7 +31,7 @@ public class ConnectionHandler {
 		//System.out.println(FWDBPassword);
 		
 		
-		String connectionString = "jdbc:oracle:thin:"+ FWDBHost +":1521:" + FWDB;
+		String connectionString = "jdbc:oracle:thin:"+ FWDBHost +":1521/" + FWDB;
 		
 		//String connectionString = "@jdbc:oracle:thin:SYSTEM/SYSTEM@localhost:1521/XE";
 		

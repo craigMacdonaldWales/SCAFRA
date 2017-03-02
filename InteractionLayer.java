@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -79,8 +80,10 @@ public class InteractionLayer {
 		System.out.println("launching firefox");
 		
 		driver = new FirefoxDriver();
+		//driver.manage().window().setPosition('1');
 		driver.manage().window().maximize();
 	    driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+	    //driver.manage().window().setSize(new Dimension(1920,1080));
 		
 		System.out.println(driver);
 		
@@ -447,8 +450,19 @@ public class InteractionLayer {
 							e.printStackTrace();
 						}
 					
-					new Select(driver.findElement(By.xpath(fieldDesc))).selectByVisibleText(fieldInputVal);
-					driver.findElement(By.xpath(fieldDesc)).sendKeys(fieldInputVal);
+					 switch (osSystem){
+						case "Mac OS X":	
+							 // need to document this
+							//Thread.sleep(1000);
+							new Select(driver.findElement(By.xpath(fieldDesc))).selectByVisibleText(fieldInputVal);
+							break;
+						default:
+							System.out.println("windows list select");
+							driver.findElement(By.id(fieldDesc)).click();
+							driver.findElement(By.id(fieldDesc)).sendKeys(fieldInputVal);
+							break;	
+					 }
+						
 					break;
 				default:
 					driver.findElement(By.xpath (fieldDesc)).sendKeys(fieldInputVal);
@@ -662,7 +676,7 @@ public class InteractionLayer {
 		originalText = originalText.replace("\u2082", "subscript2");
 		//System.out.println(originalText);
 		
-		originalText = originalText.replace("¿", "subscript2");
+		originalText = originalText.replace("ï¿½", "subscript2");
 		System.out.println(originalText);
 		
 		//String[] 
@@ -713,6 +727,9 @@ public class InteractionLayer {
 		}
 		
 		driver.get(navTarget);
+		driver.manage().window().maximize();
+		//driver.manage().window().fullscreen();
+		//driver.manage().window().setSize("1000","600");
 		
 		stepSuccess = "pass";
 		return stepSuccess;
