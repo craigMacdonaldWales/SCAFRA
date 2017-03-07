@@ -9,6 +9,7 @@ public class Startup {
 	
 	
 	public static String FW_DB;
+	public static String FW_DB_TYPE;
 	public static String FW_DB_UID;
 	public static String FW_DB_PWD;
 	public static String FW_DB_HOST_JDBC;
@@ -25,6 +26,7 @@ public class Startup {
 	
 	public static String BASE_URL;
 	public static String verAppind;
+	public static String BROWSER;
 	
 	public static int RUN_MODE;
 	
@@ -54,11 +56,6 @@ public class Startup {
 	}
 	
 		// load up startup parameters from INI file
-	
-	
-	
-	
-	
 	
 	String runGroupId;
 	
@@ -101,7 +98,7 @@ public class Startup {
 	FW_DB_UID = configMap.get("FW_DB_UID");
 	FW_DB_PWD = configMap.get("FW_DB_PWD");
 	FW_DB_HOST_JDBC = configMap.get("FW_DB_HOST_JDBC");
-	
+	FW_DB_TYPE = configMap.get("FW_DB_TYPE");
 			
 	// now extract from the database	
 		
@@ -171,6 +168,10 @@ public class Startup {
 			configMap.put(param,paramValue);
 			BASE_URL = configMap.get("BASE_URL");
 			break;
+		case "BROWSER":
+			configMap.put(param,paramValue);
+			BROWSER = configMap.get("BROWSER");
+			System.out.println(BROWSER);
 		case "":
 			break;
 		case "null":

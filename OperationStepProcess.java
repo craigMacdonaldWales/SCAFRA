@@ -466,7 +466,7 @@ public class OperationStepProcess {
 				break;
 			case "BROWSER_INVOKE":
 				try{
-				InteractionLayer.browserInvoke();
+				InteractionLayer.browserInvoke(navTarget); 
 				}catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

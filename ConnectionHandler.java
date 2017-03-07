@@ -31,6 +31,22 @@ public class ConnectionHandler {
 		//System.out.println(FWDBPassword);
 		
 		
+		
+		if (Startup.FW_DB_TYPE != null){
+			
+			String FW_DB_TYPE = Startup.FW_DB_TYPE;
+			System.out.println(FW_DB_TYPE);
+			
+			switch (FW_DB_TYPE){
+			case "Mysql":
+				connection = connectionMysql();
+				return connection;
+				//break;
+			default:
+				break;
+			}
+		}
+		
 		String connectionString = "jdbc:oracle:thin:"+ FWDBHost +":1521/" + FWDB;
 		
 		//String connectionString = "@jdbc:oracle:thin:SYSTEM/SYSTEM@localhost:1521/XE";
@@ -86,7 +102,7 @@ public class ConnectionHandler {
 //			}
 //			
 //		}
-			
+		
 		System.out.println("external db connection function called");
 		/// handle connection to databases. 
 		// import these parameters from the RUN_CONFIG table
@@ -220,4 +236,25 @@ public class ConnectionHandler {
 		return true;
 		
 	}
+	
+	public static Connection connectionMysql(){
+		
+		String url = "jdbc:mysql://localhost:3306/" + Startup.FW_DB + "?autoReconnect=true&useSSL=false";
+		//String url = "root@//localhost:3306/null";
+		
+		String username = Startup.FW_DB_UID;
+		String password = Startup.FW_DB_PWD;
+
+		System.out.println("Connecting to Mysql database...");
+
+		try (Connection connection = DriverManager.getConnection(url, username, password)) {
+		    System.out.println("Database connected!");
+		    return connection;
+		} catch (SQLException e) {
+		    throw new IllegalStateException("Cannot connect the database!", e);
+		}
+		
+	}
+	
+	
 }

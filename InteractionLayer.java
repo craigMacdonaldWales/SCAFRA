@@ -13,7 +13,8 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.chrome.*;
+import org.openqa.selenium.firefox.*;
 import org.openqa.selenium.remote.Augmenter;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -39,6 +40,7 @@ public class InteractionLayer {
 	public static int globalWait;
 	public static WebDriver driver;
 	public static String osSystem = System.getProperty("os.name");
+	public static String Browser;
 	//public static WebDriver;
 	//static WebDriver driver;
 //	public static void newDriverCreate(){
@@ -59,33 +61,65 @@ public class InteractionLayer {
 		
 	//}
 	
-	public static String browserInvoke() throws Exception {
+	public static String browserInvoke(String browser) throws Exception {
+		// launch the browser, create the driver object
+		
+		System.out.println("Globally declared browser type: " + Startup.BROWSER);
+		
+		switch (browser){
+		case "BROWSER":
+			browser = Startup.BROWSER; // get globally defined browser class.
+			System.out.println("Globally declared browser type: " + browser);
+			break;
+		default:
+			break;
+		}
+		
+		Browser = browser.toLowerCase();
 		
 		if (driver != null){ // does an active driver instance already exist?
 			//driver.close();
 			driver.quit();
 		}
 		
-		//Thread.sleep(1000);
 		System.out.println(osSystem);
-		switch (osSystem){
-			case "Mac OS X":	
-				System.setProperty("webdriver.gecko.driver", "//geckodriver//geckodriver"); // need to document this
-				break;
-			default:
-				System.setProperty("webdriver.gecko.driver", "C:\\GeckoDriver\\geckodriver.exe"); // need to document this
-				break;
+		
+		switch (Browser){
+		case "chrome":	
+			switch (osSystem){
+				case "Mac OS X":	
+					System.setProperty("webdriver.chrome.driver", "//chromedriver//chromedriver"); // need to document this
+					ChromeOptions options = new ChromeOptions();
+					options.addArguments("--start-maximized");
+					driver = new ChromeDriver(options);
+					//driver = new ChromeDriver();
+					break;
+				default:
+					System.setProperty("webdriver.chrome.driver", "C:\\chromedriver\\chromedriver.exe"); // need to document this
+					driver = new ChromeDriver();
+					break;
+			}
+			break;
+		default: // default to firefox.
+			switch (osSystem){
+				case "Mac OS X":
+					System.setProperty("webdriver.gecko.driver", "//geckodriver//geckodriver"); // need to document this
+					driver = new FirefoxDriver();
+					break;
+				default:
+					System.setProperty("webdriver.gecko.driver", "C:\\GeckoDriver\\geckodriver.exe"); // need to document this
+					driver = new FirefoxDriver();
+					break;
+			}
+			
+			break;
+		
 		}
-		
-		System.out.println("launching firefox");
-		
-		driver = new FirefoxDriver();
-		//driver.manage().window().setPosition('1');
+	    
 		driver.manage().window().maximize();
-	    driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-	    //driver.manage().window().setSize(new Dimension(1920,1080));
 		
 		System.out.println(driver);
+		
 		
 		//String driverString = 
 		
@@ -155,7 +189,7 @@ public class InteractionLayer {
 		
 		// throws?
 		WebDriverWait wait = new WebDriverWait(driver,10);
-		wait.until(ExpectedConditions.elementToBeClickable(By.xpath (OperationStepProcess.navTarget)));
+		//wait.Until(ExpectedConditions.elementToBeClickable(By.xpath (OperationStepProcess.navTarget)));
 		
 		driver.findElement(By.xpath (OperationStepProcess.navTarget)).click();
 		
@@ -279,10 +313,13 @@ public class InteractionLayer {
 				
 				try{
 					//element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(desc)));
-					driver.manage().timeouts().implicitlyWait(100,TimeUnit.MILLISECONDS);
+					//driver.manage().timeouts().implicitlyWait(100,TimeUnit.MILLISECONDS);
+					//driver.manage().timeouts().
 					List <WebElement> elementList = driver.findElements(By.xpath(desc));
 					
-					driver.manage().timeouts().implicitlyWait(globalWait,TimeUnit.MILLISECONDS);
+					//driver.manage().timeouts().implicitlyWait(globalWait,TimeUnit.MILLISECONDS);
+					
+					driver.manage().timeouts().implicitlyWait(globalWaitMilli, null);
 					
 					if (elementList.size() > 0){
 						System.out.println("web element " + desc + "located.");
