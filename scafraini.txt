@@ -1,14 +1,35 @@
 --runtime control initialize
+-- = line not processed
+
+
 maximum_wait_time_in_seconds=5
 max_number_of_repeat_attempts=1
 simulation_indicator=0
 
 RUN_GROUP_ID=CRUD_STEP_DEFS
 
---db conneciton information - LOCALLY HOSTED ORACLE XE
-FW_DB=xe
+--db connection information - ORACLE XE AWS CLOUD RDS
+FW_DB=ORCL
 FW_DB_UID=SCAFRA
-FW_DB_PWD=password
-FW_DB_HOST_JDBC=@localhost
+FW_DB_PWD=sunbeam1
+FW_DB_HOST_JDBC=@scafra.cejwzfjifpz9.eu-west-2.rds.amazonaws.com
 
+--db connection information - ORACLE XE ON VIRTUAL MACHINE
+--FW_DB=orcl
+--FW_DB_UID=SCAFRA
+--FW_DB_PWD=password
+--FW_DB_HOST_JDBC=@127.0.0.1
 
+--db connection information - LOCALLY HOSTED MYSQL DB
+--FW_DB_TYPE=Mysql
+--FW_DB=scafra
+--FW_DB_UID=root
+--FW_DB_PWD=scafra
+--FW_DB_HOST_JDBC=root@//localhost:3306/scafra
+
+--db connection information - CLOUD HOSTED MYSQL DB
+--FW_DB_TYPE=Mysql_Cloud
+--FW_DB=scafra
+--FW_DB_UID=root
+--FW_DB_PWD=scafra
+--FW_DB_HOST_JDBC=@//localhost:3306/null
